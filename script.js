@@ -10,6 +10,29 @@ function convertToRoman(num) {
     };
 
   //your code here
+	const values = Object.values(obj);
+	let result = "";
+
+	for(let i = 0 ; i< values.length; i++){
+		let [symbol, value] = values[i];
+
+		if(i + 1 < values.length){
+			let[nextSymbol,nextValue] = values[i + 1];
+
+			if(num >= value - nextvalue){
+				while(num >= value - nextValue && num < value){
+					result += nextSymbol + symbol;
+					num -= (value - nextValue);
+				}
+			}
+		}
+
+		while(num >= value){
+			result += symbol;
+			num -= value;
+		}
+	}
+	return result;
 
 }
 // You can test your code by running the above function and printing it to console by pressing the run button at the top. To run it with input 36, uncomment the following line
