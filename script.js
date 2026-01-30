@@ -14,16 +14,17 @@ function convertToRoman(num) {
   const values = [];
 
   for (let i = 0; i < base.length; i++) {
+    values.push(base[i]);
+  }
 
-    let [symbol, value] = base[i];
-    values.push([symbol, value]);
+  for (let i = 0; i < base.length - 1; i++) {
 
-    if (i + 1 < base.length) {
-      let [nextSymbol, nextValue] = base[i + 1];
+    let [bigSymbol, bigValue] = base[i];
+    let [smallSymbol, smallValue] = base[i + 1];
 
-      if (nextValue === 1 || nextValue === 10 || nextValue === 100) {
-        values.push([nextSymbol + symbol, value - nextValue]);
-      }
+    // Roman rule: subtract only from powers of 10
+    if (smallValue === 1 || smallValue === 10 || smallValue === 100) {
+      values.push([smallSymbol + bigSymbol, bigValue - smallValue]);
     }
   }
 
@@ -39,6 +40,7 @@ function convertToRoman(num) {
   }
 
   return result;
+
 }
 
 // You can test your code by running the above function and printing it to console by pressing the run button at the top. To run it with input 36, uncomment the following line
