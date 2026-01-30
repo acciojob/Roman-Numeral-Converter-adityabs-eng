@@ -10,40 +10,37 @@ function convertToRoman(num) {
     };
 
   //your code here
-  const values = Object.values(obj);
+  const base = Object.values(obj);
+  const values = [];
+
+  for (let i = 0; i < base.length; i++) {
+
+    let [symbol, value] = base[i];
+    values.push([symbol, value]);
+
+    if (i + 1 < base.length) {
+      let [nextSymbol, nextValue] = base[i + 1];
+
+      if (nextValue === 1 || nextValue === 10 || nextValue === 100) {
+        values.push([nextSymbol + symbol, value - nextValue]);
+      }
+    }
+  }
+
+  values.sort((a, b) => b[1] - a[1]);
+
   let result = "";
 
-  for (let i = 0; i < values.length; i++) {
-
-    let [symbol, value] = values[i];
-
+  for (let [symbol, value] of values) {
     while (num >= value) {
       result += symbol;
       num -= value;
-    }
-
-    if (i + 1 < values.length) {
-
-      let [nextSymbol, nextValue] = values[i + 1];
-
-      if (
-        nextValue === 1 ||
-        nextValue === 10 ||
-        nextValue === 100
-      ) {
-
-        let subtractValue = value - nextValue;
-
-        if (num >= subtractValue) {
-          result += nextSymbol + symbol;
-          num -= subtractValue;
-        }
-      }
     }
   }
 
   return result;
 }
+
 // You can test your code by running the above function and printing it to console by pressing the run button at the top. To run it with input 36, uncomment the following line
 
 // console.log(convertToRoman(36));
