@@ -10,29 +10,25 @@ function convertToRoman(num) {
     };
 
   //your code here
-  const base = Object.values(obj);
-  const values = [];
-
-  for (let i = 0; i < base.length; i++) {
-    values.push(base[i]);
-  }
-
-  for (let i = 0; i < base.length - 1; i++) {
-
-    let [bigSymbol, bigValue] = base[i];
-    let [smallSymbol, smallValue] = base[i + 1];
-
-    // Roman rule: subtract only from powers of 10
-    if (smallValue === 1 || smallValue === 10 || smallValue === 100) {
-      values.push([smallSymbol + bigSymbol, bigValue - smallValue]);
-    }
-  }
-
-  values.sort((a, b) => b[1] - a[1]);
+  const symbols = [
+    ['M',1000],
+    ['CM',900],
+    ['D',500],
+    ['CD',400],
+    ['C',100],
+    ['XC',90],
+    ['L',50],
+    ['XL',40],
+    ['X',10],
+    ['IX',9],
+    ['V',5],
+    ['IV',4],
+    ['I',1]
+  ];
 
   let result = "";
 
-  for (let [symbol, value] of values) {
+  for (let [symbol, value] of symbols) {
     while (num >= value) {
       result += symbol;
       num -= value;
