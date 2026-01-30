@@ -10,28 +10,35 @@ function convertToRoman(num) {
     };
 
   //your code here
- const values = Object.values(obj);
+  const values = Object.values(obj);
   let result = "";
 
   for (let i = 0; i < values.length; i++) {
+
     let [symbol, value] = values[i];
-
-    // Handle subtractive cases dynamically
-    if (i + 1 < values.length) {
-      let [nextSymbol, nextValue] = values[i + 1];
-
-      if (num >= value - nextValue) {
-        while (num >= value - nextValue && num < value) {
-          result += nextSymbol + symbol;
-          num -= (value - nextValue);
-        }
-      }
-    }
-
 
     while (num >= value) {
       result += symbol;
       num -= value;
+    }
+
+    if (i + 1 < values.length) {
+
+      let [nextSymbol, nextValue] = values[i + 1];
+
+      if (
+        nextValue === 1 ||
+        nextValue === 10 ||
+        nextValue === 100
+      ) {
+
+        let subtractValue = value - nextValue;
+
+        if (num >= subtractValue) {
+          result += nextSymbol + symbol;
+          num -= subtractValue;
+        }
+      }
     }
   }
 
